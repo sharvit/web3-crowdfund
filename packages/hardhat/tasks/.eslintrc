@@ -1,0 +1,9 @@
+{
+  "globals": {
+    "task": true,
+    "config": true
+  },
+  "rules": {
+    "no-underscore-dangle": "off"
+  }
+}

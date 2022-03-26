@@ -1,0 +1,43 @@
+{
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+       "presets": ["@babel/preset-env", "@babel/preset-react"]
+    },
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "plugins": [
+    "import",
+    "jest",
+    "jsx-a11y",
+    "node",
+    "prettier",
+    "promise",
+    "react",
+    "react-hooks",
+    "standard"
+  ],
+  "extends": [
+    "standard",
+    "standard-react",
+    "standard-jsx",
+    "airbnb",
+    "prettier",
+    "plugin:jest/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "no-restricted-exports": "off",
+    "react/jsx-filename-extension": "off",
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "es5"
+    }]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "env": {
+    "node": true,
+    "jest": false,
+    "mocha": true
+  },
+  "rules": {
+    "jest/no-deprecated-functions": "off",
+    "no-console": "off"
+  }
+}
