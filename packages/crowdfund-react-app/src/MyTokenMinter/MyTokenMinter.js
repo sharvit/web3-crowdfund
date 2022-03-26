@@ -4,7 +4,7 @@ import { utils as ethersUtils } from 'ethers';
 import { useGasPrice, useWeb3Context, useWeb3Connect } from '../web3';
 import { useMyTokenMinter } from './hooks';
 
-function MintPage() {
+function MyTokenMinter() {
   const [amountToMint, setAmountToMint] = useState(1);
   const gasPrice = useGasPrice('fastest');
   const { user } = useWeb3Context();
@@ -138,4 +138,4 @@ function MintPage() {
   );
 }
 
-export default MintPage;
+export default MyTokenMinter;
