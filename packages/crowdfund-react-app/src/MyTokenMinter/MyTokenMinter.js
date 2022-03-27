@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { utils as ethersUtils } from 'ethers';
 
-import { useGasPrice, useWeb3Context, useWeb3Connect } from '../web3';
+import { useWeb3Context, useWeb3Connect } from '../web3';
 import { useMyTokenMinter } from './hooks';
+import { UserSection, TokenInfoSection, GasPriceSection } from './components';
 
 function MyTokenMinter() {
   const [amountToMint, setAmountToMint] = useState(1);
-  const gasPrice = useGasPrice('fastest');
   const { user } = useWeb3Context();
   const { login, isLoggedIn, loaded } = useWeb3Connect();
 
@@ -35,51 +35,35 @@ function MyTokenMinter() {
   return (
     <div>
       <h1>Home Page</h1>
-      {/* Login */}
-      {loaded && !isLoggedIn && (
-        <div style={{ marginTop: '24px' }}>
-          <button type="button" onClick={login}>
-            Login
-          </button>
-        </div>
-      )}
-      {/* Current balance */}
-      {loaded && isLoggedIn && (
-        <div style={{ marginTop: '24px' }}>
-          <div>Logged in as: {user.walletAddress}</div>
-          <div>You have {myTokenBalance} MyToken tokens</div>
-        </div>
-      )}
-      {/* Addresses */}
-      <div style={{ marginTop: '24px' }}>
-        <div>MyToken address: {tokenAddress}</div>
-      </div>
-      {/* Constants */}
-      <div style={{ marginTop: '24px' }}>
-        <div>Minting Duration: {mintingDuration} seconds</div>
-        <div>
-          Mint Price:{' '}
-          {mintPrice && `Ξ ${ethersUtils.formatUnits(mintPrice, 'ether')}`}
-        </div>
-        <div>
-          Mint Extra Price:{' '}
-          {mintExtraPrice &&
-            `Ξ ${ethersUtils.formatUnits(mintExtraPrice, 'ether')}`}
-        </div>
-        <div>Minimum Supply: {minSupply}</div>
-        <div>Extra Supply: {extraSupply}</div>
-        <div>Owner Supply: {ownerSupply}</div>
-        <div>Max Mint Per Transaction: {maxMintPerTransaction}</div>
-      </div>
-      {/* Live Information */}
-      <div style={{ marginTop: '24px' }}>
-        <div>Supply Minted: {supplyMinted}</div>
-        <div>Sale Started? {isSaleStarted ? 'Yes' : 'No'}</div>
-        <div>Sale Finished? {isSaleFinished ? 'Yes' : 'No'}</div>
-        <div>Sale Active? {isSaleActive ? 'Yes' : 'No'}</div>
-        <div>Min supply minted? {isMinSupplyMinted ? 'Yes' : 'No'}</div>
-        <div>Extra supply minted? {isExtraSupplyMinted ? 'Yes' : 'No'}</div>
-      </div>
+      <UserSection
+        loaded={loaded}
+        isLoggedIn={isLoggedIn}
+        login={login}
+        myTokenBalance={myTokenBalance}
+        walletAddress={user?.walletAddress}
+      />
+      <TokenInfoSection
+        tokenAddress={tokenAddress}
+        mintingDuration={mintingDuration}
+        mintPrice={
+          mintPrice ? Number(ethersUtils.formatUnits(mintPrice, 'ether')) : 0
+        }
+        mintExtraPrice={
+          mintPrice
+            ? Number(ethersUtils.formatUnits(mintExtraPrice, 'ether'))
+            : 0
+        }
+        minSupply={minSupply}
+        extraSupply={extraSupply}
+        ownerSupply={ownerSupply}
+        maxMintPerTransaction={maxMintPerTransaction}
+        supplyMinted={supplyMinted}
+        isSaleStarted={isSaleStarted}
+        isSaleFinished={isSaleFinished}
+        isSaleActive={isSaleActive}
+        isMinSupplyMinted={isMinSupplyMinted}
+        isExtraSupplyMinted={isExtraSupplyMinted}
+      />
       {/* Mint Form */}
       {mintPrice && !isSaleFinished && (
         <div style={{ marginTop: '24px' }}>
@@ -123,17 +107,7 @@ function MyTokenMinter() {
           </button>
         </div>
       )}
-      {/* Gas price */}
-      <div style={{ marginTop: '24px' }}>
-        <span>
-          <span style={{ marginRight: 16 }}>Gas Price:</span>
-          <span role="img" aria-label="fuelpump">
-            ⛽️
-          </span>
-        </span>
-        {typeof gasPrice === 'undefined' ? 0 : parseInt(gasPrice, 10) / 10 ** 9}
-        g
-      </div>
+      <GasPriceSection />
     </div>
   );
 }

@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "g": "hygen",
     "clean": "lerna clean",
     "postinstall": "lerna bootstrap",
     "lint": "eslint .",
@@ -32,6 +33,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-standard": "^5.0.0",
+    "hygen": "^6.2.0",
     "prettier": "^2.6.0"
   }
 }
