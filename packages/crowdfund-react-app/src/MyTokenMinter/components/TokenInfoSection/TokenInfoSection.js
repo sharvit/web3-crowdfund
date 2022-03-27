@@ -1,22 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { utils as ethersUtils } from 'ethers';
 
-function TokenInfoSection({
-  tokenAddress,
-  mintingDuration,
-  mintPrice,
-  mintExtraPrice,
-  minSupply,
-  extraSupply,
-  ownerSupply,
-  maxMintPerTransaction,
-  supplyMinted,
-  isSaleStarted,
-  isSaleFinished,
-  isSaleActive,
-  isMinSupplyMinted,
-  isExtraSupplyMinted,
-}) {
+import { useMyTokenContext } from '../../MyTokenProvider';
+
+function TokenInfoSection() {
+  const {
+    tokenAddress,
+    mintingDuration,
+    mintPrice,
+    mintExtraPrice,
+    minSupply,
+    extraSupply,
+    ownerSupply,
+    maxMintPerTransaction,
+    supplyMinted,
+    isSaleStarted,
+    isSaleFinished,
+    isSaleActive,
+    isMinSupplyMinted,
+    isExtraSupplyMinted,
+  } = useMyTokenContext();
+
   return (
     <>
       {/* Addresses */}
@@ -26,8 +30,15 @@ function TokenInfoSection({
       {/* Constants */}
       <div style={{ marginTop: '24px' }}>
         <div>Minting Duration: {mintingDuration} seconds</div>
-        <div>Mint Price: {mintPrice && `Ξ ${mintPrice}`}</div>
-        <div>Mint Extra Price: {mintExtraPrice && `Ξ ${mintExtraPrice}`}</div>
+        <div>
+          Mint Price:{' '}
+          {mintPrice && `Ξ ${ethersUtils.formatUnits(mintPrice, 'ether')}`}
+        </div>
+        <div>
+          Mint Extra Price:{' '}
+          {mintExtraPrice &&
+            `Ξ ${ethersUtils.formatUnits(mintExtraPrice, 'ether')}`}
+        </div>
         <div>Minimum Supply: {minSupply}</div>
         <div>Extra Supply: {extraSupply}</div>
         <div>Owner Supply: {ownerSupply}</div>
@@ -45,39 +56,5 @@ function TokenInfoSection({
     </>
   );
 }
-
-TokenInfoSection.propTypes = {
-  tokenAddress: PropTypes.string,
-  mintingDuration: PropTypes.number,
-  mintPrice: PropTypes.number,
-  mintExtraPrice: PropTypes.number,
-  minSupply: PropTypes.number,
-  extraSupply: PropTypes.number,
-  ownerSupply: PropTypes.number,
-  maxMintPerTransaction: PropTypes.number,
-  supplyMinted: PropTypes.number,
-  isSaleStarted: PropTypes.bool,
-  isSaleFinished: PropTypes.bool,
-  isSaleActive: PropTypes.bool,
-  isMinSupplyMinted: PropTypes.bool,
-  isExtraSupplyMinted: PropTypes.bool,
-};
-
-TokenInfoSection.defaultProps = {
-  tokenAddress: '',
-  mintingDuration: 0,
-  mintPrice: 0,
-  mintExtraPrice: 0,
-  minSupply: 0,
-  extraSupply: 0,
-  ownerSupply: 0,
-  maxMintPerTransaction: 0,
-  supplyMinted: 0,
-  isSaleStarted: false,
-  isSaleFinished: false,
-  isSaleActive: false,
-  isMinSupplyMinted: false,
-  isExtraSupplyMinted: false,
-};
 
 export default TokenInfoSection;

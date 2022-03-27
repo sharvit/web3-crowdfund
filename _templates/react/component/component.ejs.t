@@ -1,5 +1,5 @@
 ---
-to: <%= path %>/<%= Name %>.js
+to: <%= path %>/<% if (!locals.flat) { %><%= Name %><% } %>/<%= Name %>.js
 ---
 <% if (locals.useState) { -%>
 import React, { useState } from 'react';
@@ -10,6 +10,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 <% } -%>
 
+<% if (locals.useCss) { -%>
+import styles from './<%= Name %>.module.css';
+
+<% } -%>
 <% if (locals.useProps) { -%>
 function <%= Name %>({ children, message }) {
 <% } else { -%>
@@ -20,7 +24,11 @@ function <%= Name %>() {
 
   <%_ } -%>
   return (
+    <%_ if (locals.useCss) { -%>
+    <div className={styles.container}>
+    <%_ } else { -%>
     <div>
+    <%_ } -%>
       <h1>Hello</h1>
       <%_ if (locals.useState) { -%>
       <div>

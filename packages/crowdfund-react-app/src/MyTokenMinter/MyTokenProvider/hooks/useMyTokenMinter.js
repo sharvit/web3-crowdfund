@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { CONTRACT_NAME } from '../../constants';
+import { CONTRACT_NAME } from '../../../constants';
 import {
   useContractReader,
   useContractWriter,
   useOnBlock,
   useWeb3Context,
-} from '../../web3';
+} from '../../../web3';
 
 import useMyTokenBalance from './useMyTokenBalance';
 

@@ -1,48 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function UserSection({
-  loaded,
-  isLoggedIn,
-  login,
-  walletAddress,
-  myTokenBalance,
-}) {
+import { useMyTokenContext } from '../../MyTokenProvider';
+
+function UserSection() {
+  const { loaded, isLoggedIn, login, user, myTokenBalance } =
+    useMyTokenContext();
+
+  if (!loaded) return null;
+
+  if (isLoggedIn) {
+    return (
+      <div style={{ marginTop: '24px' }}>
+        <div>Logged in as: {user.walletAddress}</div>
+        <div>You have {myTokenBalance} MyToken tokens</div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {/* Login */}
-      {loaded && !isLoggedIn && (
-        <div style={{ marginTop: '24px' }}>
-          <button type="button" onClick={login}>
-            Login
-          </button>
-        </div>
-      )}
-      {/* Current balance */}
-      {loaded && isLoggedIn && (
-        <div style={{ marginTop: '24px' }}>
-          <div>Logged in as: {walletAddress}</div>
-          <div>You have {myTokenBalance} MyToken tokens</div>
-        </div>
-      )}
-    </>
+    <div style={{ marginTop: '24px' }}>
+      <button type="button" onClick={login}>
+        Login
+      </button>
+    </div>
   );
 }
-
-UserSection.propTypes = {
-  loaded: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
-  login: PropTypes.func,
-  walletAddress: PropTypes.string,
-  myTokenBalance: PropTypes.number,
-};
-
-UserSection.defaultProps = {
-  loaded: false,
-  isLoggedIn: false,
-  login: () => undefined,
-  walletAddress: '',
-  myTokenBalance: 0,
-};
 
 export default UserSection;

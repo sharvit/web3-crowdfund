@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { useContractReader, useOnBlock, useWeb3Context } from '../../web3';
-import { CONTRACT_NAME } from '../../constants';
+import { useContractReader, useOnBlock, useWeb3Context } from '../../../web3';
+import { CONTRACT_NAME } from '../../../constants';
 /**
  * Get the myToken token balance of the logged-in user.
  * Updates every block.
