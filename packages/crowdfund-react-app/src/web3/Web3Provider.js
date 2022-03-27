@@ -16,12 +16,10 @@ function Web3Provider({ children }) {
   const {
     network,
     provider,
-    user,
     contracts,
     gasPrices,
     setNetwork,
     setProvider,
-    setUser,
     setContracts,
     setGasPrices,
   } = useWeb3State();
@@ -57,13 +55,6 @@ function Web3Provider({ children }) {
   useOnBlock(provider, (blockNumber) => {
     logger.info(`⛓ A new ${network.name} block is here: ${blockNumber}`);
   });
-  /**
-   * Log every user change
-   */
-  useEffect(() => {
-    if (user && user.walletAddress !== undefined)
-      logger.info(`⛓ New user loaded: ${user.walletAddress}`);
-  }, [user]);
 
   return (
     <Web3Context.Provider
@@ -71,12 +62,10 @@ function Web3Provider({ children }) {
         () => ({
           network,
           provider,
-          user,
-          setUser,
           contracts,
           gasPrices,
         }),
-        [network, provider, user, setUser, contracts, gasPrices]
+        [network, provider, contracts, gasPrices]
       )}
     >
       {children}

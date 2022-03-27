@@ -1,17 +1,26 @@
 import React from 'react';
 
+import {
+  useWalletAddress,
+  useIsLoggedIn,
+  useIsLoaded,
+  useLoginCallback,
+} from '../../../react-web3modal';
 import { useMyTokenContext } from '../../MyTokenProvider';
 
 function UserSection() {
-  const { loaded, isLoggedIn, login, user, myTokenBalance } =
-    useMyTokenContext();
+  const isLoaded = useIsLoaded();
+  const isLoggedIn = useIsLoggedIn();
+  const walletAddress = useWalletAddress();
+  const login = useLoginCallback();
+  const { myTokenBalance } = useMyTokenContext();
 
-  if (!loaded) return null;
+  if (!isLoaded) return null;
 
   if (isLoggedIn) {
     return (
       <div style={{ marginTop: '24px' }}>
-        <div>Logged in as: {user.walletAddress}</div>
+        <div>Logged in as: {walletAddress}</div>
         <div>You have {myTokenBalance} MyToken tokens</div>
       </div>
     );

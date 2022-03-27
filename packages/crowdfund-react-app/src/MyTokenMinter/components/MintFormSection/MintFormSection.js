@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { utils as ethersUtils } from 'ethers';
 
+import { useIsLoggedIn } from '../../../react-web3modal';
 import { useMyTokenContext } from '../../MyTokenProvider';
 
 function MintFormSection() {
   const [amountToMint, setAmountToMint] = useState(1);
+  const isLoggedIn = useIsLoggedIn();
   const {
     mintPrice,
     isSaleFinished,
@@ -12,7 +14,6 @@ function MintFormSection() {
     currentPrice,
     isSaleActive,
     mint,
-    isLoggedIn,
   } = useMyTokenContext();
 
   if (!mintPrice || isSaleFinished) return null;

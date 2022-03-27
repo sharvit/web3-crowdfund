@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Web3Provider from './web3/Web3Provider';
+import { ReactWeb3ModalProvider } from './react-web3modal';
 import MyTokenMinter from './MyTokenMinter';
 
 import styles from './App.module.css';
@@ -9,7 +10,9 @@ function App() {
   return (
     <div className={styles.App}>
       <Web3Provider>
-        <MyTokenMinter />
+        <ReactWeb3ModalProvider options={{ cacheProvider: true }}>
+          <MyTokenMinter />
+        </ReactWeb3ModalProvider>
       </Web3Provider>
     </div>
   );

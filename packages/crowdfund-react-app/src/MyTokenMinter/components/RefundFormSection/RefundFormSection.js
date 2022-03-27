@@ -1,9 +1,11 @@
 import React from 'react';
 import { utils as ethersUtils } from 'ethers';
 
+import { useIsLoggedIn } from '../../../react-web3modal';
 import { useMyTokenContext } from '../../MyTokenProvider';
 
 function RefundFormSection() {
+  const isLoggedIn = useIsLoggedIn();
   const {
     isSaleFinished,
     isMinSupplyMinted,
@@ -12,7 +14,7 @@ function RefundFormSection() {
     getRefund,
   } = useMyTokenContext();
 
-  if (!isSaleFinished || isMinSupplyMinted || myTokenBalance < 1) return null;
+  if (!isSaleFinished || isMinSupplyMinted) return null;
 
   return (
     <div style={{ marginTop: '24px' }}>
@@ -24,7 +26,11 @@ function RefundFormSection() {
           'ether'
         )}
       </div>
-      <button type="submit" onClick={() => getRefund()}>
+      <button
+        type="submit"
+        onClick={() => getRefund()}
+        disabled={!isLoggedIn || myTokenBalance < 1}
+      >
         Get Your Money Back NOW
       </button>
     </div>

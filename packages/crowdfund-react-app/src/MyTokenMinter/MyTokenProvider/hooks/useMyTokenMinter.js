@@ -7,6 +7,7 @@ import {
   useOnBlock,
   useWeb3Context,
 } from '../../../web3';
+import { useSigner } from '../../../react-web3modal';
 
 import useMyTokenBalance from './useMyTokenBalance';
 
@@ -21,12 +22,15 @@ import useMyTokenBalance from './useMyTokenBalance';
  * @return {Object} myToken-minter
  */
 const useMyTokenMinter = () => {
-  const { provider } = useWeb3Context();
   const [constants, setConstants] = useState({});
   const [state, setState] = useState({});
+
+  const { provider } = useWeb3Context();
+  const signer = useSigner();
   const myTokenBalance = useMyTokenBalance();
+
   const myTokenMinterReader = useContractReader(CONTRACT_NAME);
-  const myTokenMinterWriter = useContractWriter(CONTRACT_NAME);
+  const myTokenMinterWriter = useContractWriter(CONTRACT_NAME, signer);
 
   /*
    * Loads contract constants

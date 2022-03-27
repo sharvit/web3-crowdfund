@@ -32,24 +32,6 @@ const initialState = {
    */
   provider: undefined,
   /**
-   * User injected by the wallet plugin
-   */
-  user: {
-    /**
-     * Network provider to read and write data to/from the blockchain.
-     * Need a wallect connection to inject the network provider.
-     */
-    provider: undefined,
-    /**
-     * A signer user that can sign transactions
-     */
-    signer: undefined,
-    /**
-     * Current logged in wallet address
-     */
-    walletAddress: undefined,
-  },
-  /**
    * Contracts defenitions
    */
   contracts: undefined,
@@ -65,8 +47,6 @@ const reducer = (state, { type, payload }) => {
       return { ...state, network: payload };
     case 'set-provider':
       return { ...state, provider: payload };
-    case 'set-user':
-      return { ...state, user: payload };
     case 'set-contracts':
       return { ...state, contracts: payload };
     case 'set-gas-prices':
@@ -85,11 +65,6 @@ const createActions = (dispatch) => ({
   setProvider: (payload) =>
     dispatch({
       type: 'set-provider',
-      payload,
-    }),
-  setUser: (payload) =>
-    dispatch({
-      type: 'set-user',
       payload,
     }),
   setContracts: (payload) =>
