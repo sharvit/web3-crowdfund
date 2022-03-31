@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { logger } from '../helpers';
 import { useWalletAddress, useChainId } from '../react-web3modal';
+import { useGasPrices } from '../react-ethgasstation';
 
 import { MyTokenProvider } from './MyTokenProvider';
 import {
@@ -15,6 +16,7 @@ import {
 function MyTokenMinter() {
   const walletAddress = useWalletAddress();
   const chainId = useChainId();
+  const gasPrices = useGasPrices();
 
   /**
    * Log wallet address changes
@@ -25,13 +27,21 @@ function MyTokenMinter() {
     }
   }, [walletAddress]);
   /**
-   * Log every user change
+   * Log chain-id changes
    */
   useEffect(() => {
     if (chainId) {
       logger.info(`⛓ Using chain-id: ${chainId}`);
     }
   }, [chainId]);
+  /**
+   * Log gas-prices changes
+   */
+  useEffect(() => {
+    if (gasPrices) {
+      logger.info(`⛓ New gas prices have been loaded`);
+    }
+  }, [gasPrices]);
 
   return (
     <MyTokenProvider>

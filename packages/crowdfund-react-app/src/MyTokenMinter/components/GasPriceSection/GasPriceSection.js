@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGasPrice } from '../../../web3';
+import { useGasPrice } from '../../../react-ethgasstation';
 
 function GasPriceSection() {
   const gasPrice = useGasPrice('fastest') || 0;

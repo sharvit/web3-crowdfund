@@ -1,4 +1,5 @@
-import useWeb3Context from './useWeb3Context';
+import { useMemo } from 'react';
+import useGasPrices from './useGasPrices';
 
 const MULTIPLIER = 100000000;
 
@@ -8,13 +9,15 @@ const MULTIPLIER = 100000000;
  * @return {Number}                   Gas price
  */
 const useGasPrice = (speed = 'fastest') => {
-  const { gasPrices } = useWeb3Context();
+  const gasPrices = useGasPrices();
 
-  if (gasPrices && gasPrices[speed]) {
-    return gasPrices[speed] * MULTIPLIER;
-  }
+  return useMemo(() => {
+    if (gasPrices && gasPrices[speed]) {
+      return gasPrices[speed] * MULTIPLIER;
+    }
 
-  return 0;
+    return 0;
+  }, [gasPrices, speed]);
 };
 
 export default useGasPrice;

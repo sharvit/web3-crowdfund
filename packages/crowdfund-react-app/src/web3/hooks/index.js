@@ -4,6 +4,3 @@ export { default as useContractReader } from './useContractReader';
 export { default as useContractWriter } from './useContractWriter';
 export { default as useWeb3Context } from './useWeb3Context';
 export { default as useOnBlock } from './useOnBlock';
-export { default as useGasPrice } from './useGasPrice';
-export { default as useGasPricesBlockMonitor } from './useGasPricesBlockMonitor';
-export { default as useGasPricesIntervalMonitor } from './useGasPricesIntervalMonitor';

@@ -35,10 +35,6 @@ const initialState = {
    * Contracts defenitions
    */
   contracts: undefined,
-  /**
-   * Gas prices object
-   */
-  gasPrices: undefined,
 };
 
 const reducer = (state, { type, payload }) => {
@@ -49,8 +45,6 @@ const reducer = (state, { type, payload }) => {
       return { ...state, provider: payload };
     case 'set-contracts':
       return { ...state, contracts: payload };
-    case 'set-gas-prices':
-      return { ...state, gasPrices: payload };
     default:
       return state;
   }
@@ -70,11 +64,6 @@ const createActions = (dispatch) => ({
   setContracts: (payload) =>
     dispatch({
       type: 'set-contracts',
-      payload,
-    }),
-  setGasPrices: (payload) =>
-    dispatch({
-      type: 'set-gas-prices',
       payload,
     }),
 });

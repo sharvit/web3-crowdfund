@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { INITIAL_NETWORK_NAME, getNetwork } from '../constants';
 import { logger } from '../helpers';
 import { createNetworkProvider } from './helpers';
-import {
-  useOnBlock,
-  useContractsLoader,
-  useGasPricesIntervalMonitor,
-} from './hooks';
+import { useOnBlock, useContractsLoader } from './hooks';
 import useWeb3State from './useWeb3State';
 import Web3Context from './Web3Context';
 
@@ -17,11 +13,9 @@ function Web3Provider({ children }) {
     network,
     provider,
     contracts,
-    gasPrices,
     setNetwork,
     setProvider,
     setContracts,
-    setGasPrices,
   } = useWeb3State();
   /**
    * Set new newtork provider when changing network name
@@ -43,13 +37,6 @@ function Web3Provider({ children }) {
     setContracts(newContracts);
   });
   /**
-   * Monitor gas prices
-   */
-  useGasPricesIntervalMonitor(1000, (newGasPrices) => {
-    logger.info(`⛓ New gas prices have been loaded!`);
-    setGasPrices(newGasPrices);
-  });
-  /**
    * Log every block
    */
   useOnBlock(provider, (blockNumber) => {
@@ -63,9 +50,8 @@ function Web3Provider({ children }) {
           network,
           provider,
           contracts,
-          gasPrices,
         }),
-        [network, provider, contracts, gasPrices]
+        [network, provider, contracts]
       )}
     >
       {children}

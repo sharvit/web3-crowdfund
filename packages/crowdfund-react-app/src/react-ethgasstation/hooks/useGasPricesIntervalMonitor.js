@@ -7,7 +7,7 @@ import { fetchGasPrices } from '../helpers';
  * @param  {Number}   delay                  Delay in milliseconds
  * @param  {Function} callback               Callback method
  */
-const useGasPricesIntervalMonitor = (delay, callback) => {
+const useGasPricesIntervalMonitor = (delay, callback) =>
   useInterval(
     delay,
     useCallback(async () => {
@@ -15,6 +15,5 @@ const useGasPricesIntervalMonitor = (delay, callback) => {
       callback(await fetchGasPrices());
     }, [callback])
   );
-};
 
 export default useGasPricesIntervalMonitor;
