@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { ethers } from 'ethers';
 
 import useWeb3Context from './useWeb3Context';
@@ -11,22 +11,19 @@ import useWeb3Context from './useWeb3Context';
  * @return {Object} Contract model
  */
 const useContract = (name, providerOrSigner) => {
-  const [contract, setContract] = useState();
-  const { contracts } = useWeb3Context();
+  const { contractAbis } = useWeb3Context();
 
-  useEffect(() => {
-    if (contracts && contracts[name]) {
-      setContract(
-        new ethers.Contract(
-          contracts[name].address,
-          contracts[name].abi,
-          providerOrSigner
-        )
-      );
+  return useMemo(() => {
+    if (contractAbis === undefined || contractAbis[name] === undefined) {
+      return undefined;
     }
-  }, [name, providerOrSigner, contracts]);
 
-  return contract;
+    return new ethers.Contract(
+      contractAbis[name].address,
+      contractAbis[name].abi,
+      providerOrSigner
+    );
+  }, [name, providerOrSigner, contractAbis]);
 };
 
 export default useContract;

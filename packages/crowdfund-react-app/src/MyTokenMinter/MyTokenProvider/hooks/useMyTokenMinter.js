@@ -5,7 +5,6 @@ import {
   useContractReader,
   useContractWriter,
   useOnBlock,
-  useWeb3Context,
 } from '../../../web3';
 import { useSigner } from '../../../react-web3modal';
 
@@ -25,7 +24,6 @@ const useMyTokenMinter = () => {
   const [constants, setConstants] = useState({});
   const [state, setState] = useState({});
 
-  const { provider } = useWeb3Context();
   const signer = useSigner();
   const myTokenBalance = useMyTokenBalance();
 
@@ -58,27 +56,23 @@ const useMyTokenMinter = () => {
   /**
    * Load contract views
    */
-  useOnBlock(
-    provider,
-    () => {
-      const updateState = async () => {
-        setState({
-          supplyMinted: Number(await myTokenMinterReader.supplyMinted()),
-          ownerMinted: Number(await myTokenMinterReader.ownerMinted()),
-          saleStartedAt: Number(await myTokenMinterReader.saleStartedAt()),
-          isSaleStarted: await myTokenMinterReader.isSaleStarted(),
-          isSaleFinished: await myTokenMinterReader.isSaleFinished(),
-          isSaleActive: await myTokenMinterReader.isSaleActive(),
-          isMinSupplyMinted: await myTokenMinterReader.isMinSupplyMinted(),
-          isExtraSupplyMinted: await myTokenMinterReader.isExtraSupplyMinted(),
-        });
-      };
-      if (myTokenMinterReader) {
-        updateState();
-      }
-    },
-    [myTokenMinterReader]
-  );
+  useOnBlock(() => {
+    const updateState = async () => {
+      setState({
+        supplyMinted: Number(await myTokenMinterReader.supplyMinted()),
+        ownerMinted: Number(await myTokenMinterReader.ownerMinted()),
+        saleStartedAt: Number(await myTokenMinterReader.saleStartedAt()),
+        isSaleStarted: await myTokenMinterReader.isSaleStarted(),
+        isSaleFinished: await myTokenMinterReader.isSaleFinished(),
+        isSaleActive: await myTokenMinterReader.isSaleActive(),
+        isMinSupplyMinted: await myTokenMinterReader.isMinSupplyMinted(),
+        isExtraSupplyMinted: await myTokenMinterReader.isExtraSupplyMinted(),
+      });
+    };
+    if (myTokenMinterReader) {
+      updateState();
+    }
+  }, [myTokenMinterReader]);
 
   /**
    * Mint new tokens

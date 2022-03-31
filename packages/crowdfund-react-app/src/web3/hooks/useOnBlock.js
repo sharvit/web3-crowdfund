@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useOnBlock as useOnBlockInternal } from '../internal-hooks';
+import useProvider from './useProvider';
 
 /**
  * Run a method on every new block
@@ -6,26 +7,10 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
  * @param  {Function} callback                      Callback method
  * @param  {Array}    [conditions=[]]               Conditions to consider
  */
-const useOnBlock = (provider, callback, conditions = []) => {
-  const savedCallback = useRef(callback);
+const useOnBlock = (callback, conditions = []) => {
+  const provider = useProvider();
 
-  // Remember the latest callback if it changes.
-  useLayoutEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    if (!provider) {
-      return () => undefined;
-    }
-    for (let i = 0; i < conditions.length; i += 1) {
-      if (!conditions[i]) return () => undefined;
-    }
-
-    provider.on('block', savedCallback.current);
-
-    return () => provider.off('block', savedCallback.current);
-  }, [provider, ...conditions]); // eslint-disable-line react-hooks/exhaustive-deps
+  return useOnBlockInternal(provider, callback, conditions);
 };
 
 export default useOnBlock;
