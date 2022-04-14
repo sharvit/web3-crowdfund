@@ -1,4 +1,4 @@
-import useWeb3Context from './useWeb3Context';
+import useReactEthersContext from './useReactEthersContext';
 import useContract from './useContract';
 
 /**
@@ -7,7 +7,7 @@ import useContract from './useContract';
  * @return {Object} Contract model
  */
 const useContractReader = (name) => {
-  const { provider } = useWeb3Context();
+  const { provider } = useReactEthersContext();
 
   return useContract(name, provider);
 };

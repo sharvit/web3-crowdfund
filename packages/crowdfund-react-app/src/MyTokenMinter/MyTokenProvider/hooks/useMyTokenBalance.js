@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useContractReader, useOnBlock } from '../../../web3';
+import { useContractReader, useOnBlock } from '../../../react-ethers';
 import { useWalletAddress } from '../../../react-web3modal';
 import { CONTRACT_NAME } from '../../../constants';
 /**

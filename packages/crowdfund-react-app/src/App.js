@@ -2,7 +2,7 @@ import React from 'react';
 
 import { INITIAL_NETWORK_NAME, getNetwork } from './constants';
 import contracts from './contracts';
-import { Web3Provider } from './web3';
+import { ReactEthersProvider } from './react-ethers';
 import { ReactWeb3ModalProvider } from './react-web3modal';
 import { ReactEthGasStationProvider } from './react-ethgasstation';
 import MyTokenMinter from './MyTokenMinter';
@@ -20,13 +20,13 @@ const network = {
 function App() {
   return (
     <div className={styles.App}>
-      <Web3Provider network={network} allContractAbis={contracts}>
+      <ReactEthersProvider network={network} allContractAbis={contracts}>
         <ReactWeb3ModalProvider options={{ cacheProvider: true }}>
           <ReactEthGasStationProvider interval={1000}>
             <MyTokenMinter />
           </ReactEthGasStationProvider>
         </ReactWeb3ModalProvider>
-      </Web3Provider>
+      </ReactEthersProvider>
     </div>
   );
 }

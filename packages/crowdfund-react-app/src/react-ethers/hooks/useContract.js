@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ethers } from 'ethers';
 
-import useWeb3Context from './useWeb3Context';
+import useReactEthersContext from './useReactEthersContext';
 
 /**
  * Use a contract reader/writer model
@@ -11,7 +11,7 @@ import useWeb3Context from './useWeb3Context';
  * @return {Object} Contract model
  */
 const useContract = (name, providerOrSigner) => {
-  const { contractAbis } = useWeb3Context();
+  const { contractAbis } = useReactEthersContext();
 
   return useMemo(() => {
     if (contractAbis === undefined || contractAbis[name] === undefined) {

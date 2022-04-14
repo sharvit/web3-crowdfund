@@ -5,4 +5,4 @@ export { default as useContractWriter } from './useContractWriter';
 export { default as useNetwork } from './useNetwork';
 export { default as useOnBlock } from './useOnBlock';
 export { default as useProvider } from './useProvider';
-export { default as useWeb3Context } from './useWeb3Context';
+export { default as useReactEthersContext } from './useReactEthersContext';

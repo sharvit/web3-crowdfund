@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { useNetworkProvider, useNetworkContractAbis } from './internal-hooks';
-import Web3Context from './Web3Context';
+import ReactEthersContext from './ReactEthersContext';
 
-function Web3Provider({ children, network, allContractAbis }) {
+function ReactEthersProvider({ children, network, allContractAbis }) {
   const provider = useNetworkProvider(network.url);
   const contractAbis = useNetworkContractAbis(network, allContractAbis);
 
   return (
-    <Web3Context.Provider
+    <ReactEthersContext.Provider
       value={useMemo(
         () => ({
           network,
@@ -20,11 +20,11 @@ function Web3Provider({ children, network, allContractAbis }) {
       )}
     >
       {children}
-    </Web3Context.Provider>
+    </ReactEthersContext.Provider>
   );
 }
 
-Web3Provider.propTypes = {
+ReactEthersProvider.propTypes = {
   children: PropTypes.node.isRequired,
   network: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -35,4 +35,4 @@ Web3Provider.propTypes = {
   allContractAbis: PropTypes.object.isRequired,
 };
 
-export default Web3Provider;
+export default ReactEthersProvider;

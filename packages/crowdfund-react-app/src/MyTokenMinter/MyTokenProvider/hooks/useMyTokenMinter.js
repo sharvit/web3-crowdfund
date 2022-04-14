@@ -5,7 +5,7 @@ import {
   useContractReader,
   useContractWriter,
   useOnBlock,
-} from '../../../web3';
+} from '../../../react-ethers';
 import { useSigner } from '../../../react-web3modal';
 
 import useMyTokenBalance from './useMyTokenBalance';

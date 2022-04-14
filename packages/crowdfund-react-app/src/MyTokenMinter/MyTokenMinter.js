@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { logger } from '../helpers';
-import { useOnBlock, useNetwork } from '../web3';
+import { useOnBlock, useNetwork } from '../react-ethers';
 import { useWalletAddress, useChainId } from '../react-web3modal';
 import { useGasPrices } from '../react-ethgasstation';
 

@@ -8,7 +8,7 @@ process.env.REACT_APP_INITIAL_NETWORK = 'infuraMainnet';
 
 jest.mock('./helpers/logger');
 jest.mock(
-  './contracts/hardhat_contracts.json',
+  './contracts',
   () => ({
     1: {
       mainnet: {
